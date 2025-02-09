@@ -1,6 +1,11 @@
 # My Personal Portfolio with Modern UI
 
 # Built with React + Vite + Typescript + Tailwind CSS
+
+1. **Repository Name**: Silicon-valley-styled-personal-portfolio
+2. **Description**: Responses to an impact on modern individual portfolio profile.
+3. **Installation Instructions**: npm install.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
@@ -10,7 +15,7 @@ Currently, two official plugins are available:
 
 ## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+If you are developing a production application, I recommend updating the configuration to enable type aware lint rules:
 
 - Configure the top-level `parserOptions` property like this:
 
