@@ -75,7 +75,7 @@ const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
   const scrollingSkills = [...skills, ...skills, ...skills];
 
   return (
-    <section className="min-h-screen bg-muted/50 py-20 px-4 relative overflow-hidden">
+    <section className="min-h-screen bg-muted/50 py-24 px-4 relative overflow-hidden">
       {/* Grid Background Pattern */}
       <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
       <div className="max-w-7xl mx-auto">
@@ -93,7 +93,7 @@ const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
           </p>
         </motion.div>
 
-        <div className="space-y-16">
+        <div className="space-y-32">
           {/* First Row - Left to Right */}
           <div className="w-full overflow-hidden select-none">
             <motion.div

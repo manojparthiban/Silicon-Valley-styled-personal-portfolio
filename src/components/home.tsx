@@ -22,7 +22,7 @@ const Home = () => {
         <HeroSection
           name="Manoj Parthiban"
           title="Enthusiastic Engineer and Back-end Developer"
-          description="I love to turn complex ideas into intuitive codes that helps businesses grow."
+          description="I love to ✨ turn complex ideas into intuitive codes 💻 and always strive to learn new things in life 🚀📚!"
           onContactClick={() => {
             const contactSection = document.getElementById("contact");
             if (contactSection) {
