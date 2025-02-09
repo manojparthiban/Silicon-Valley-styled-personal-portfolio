@@ -35,10 +35,10 @@ interface ContactSectionProps {
 const ContactSection = ({
   onSubmit = (data) => console.log("Form submitted:", data),
   socialLinks = {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-    email: "mailto:example@example.com",
+    github: "https://github.com/manojparthiban",
+    linkedin: "https://www.linkedin.com/in/manoj-parthi31",
+    twitter: "https://twitter.com/ImMj31",
+    email: "mailto:manojparthiban2002@gmail.com",
   },
 }: ContactSectionProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,17 +51,19 @@ const ContactSection = ({
   });
 
   return (
-    <section className="w-full min-h-[700px] bg-muted py-16 px-4">
+    <section className="min-h-screen bg-muted/50 py-20 px-4 relative overflow-hidden">
+      {/* Grid Background Pattern */}
+      <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Get in Touch</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Have a question or want to work together? Feel free to reach out
             using the form below or through social media.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <Card className="p-6 bg-card/50 backdrop-blur-sm border-primary/10">
             <CardContent>
               <Form {...form}>

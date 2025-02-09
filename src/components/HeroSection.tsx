@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowDown, Github, Linkedin, MessageCircle } from "lucide-react";
 
 interface HeroSectionProps {
   name?: string;
@@ -11,135 +11,156 @@ interface HeroSectionProps {
   socialLinks?: {
     github?: string;
     linkedin?: string;
-    twitter?: string;
+    messenger?: string;
   };
   onContactClick?: () => void;
 }
 
 const HeroSection = ({
   name = "Manoj Parthiban",
-  title = "Enthusiastic Engineer and Back-end Developer",
-  description = "I build exceptional digital experiences that combine elegant design with robust functionality. Passionate about creating software that makes a difference.",
-  avatarUrl = "/public/ProfileFoto.jpg",
+  title = "UI Designer from London",
+  description = "Currently working with @idea as a UI Consultant.",
+  avatarUrl = "/ProfileFoto.jpg",
   socialLinks = {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
+    github: "https://github.com/manojparthiban",
+    linkedin: "https://www.linkedin.com/in/manoj-parthi31/",
+    messenger: "mailto:manojparthiban2002@gmail.com",
   },
   onContactClick = () => console.log("Contact clicked"),
 }: HeroSectionProps) => {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-background to-muted flex items-center justify-center px-4 py-20">
-      <div className="max-w-6xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-8"
-        >
-          {/* Avatar */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
-            className="w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-white shadow-lg"
+    <section className="min-h-screen bg-background relative overflow-hidden flex items-center py-24">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
+
+      {/* Animated Gradient Beams */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl animate-beam-1 opacity-50" />
+        <div className="absolute w-[500px] h-[500px] bg-secondary/20 rounded-full blur-3xl animate-beam-2 opacity-50" />
+        <div className="absolute w-[500px] h-[500px] bg-accent/20 rounded-full blur-3xl animate-beam-3 opacity-50" />
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 lg:px-12 flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-24">
+        {/* Left Content */}
+        <div className="w-full lg:w-1/2 space-y-8 text-left">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-primary text-xl font-medium"
           >
-            <img
-              src={avatarUrl}
-              alt={name}
-              className="w-full h-full object-cover"
-            />
+            Vanakam !
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight"
+          >
+            It's me,
+            <p>
+              <span className="text-primary">{name}</span>
+            </p>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-xl"
+          >
+            {title}
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-xl"
+          >
+            {description}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4"
+          >
+            <Button
+              onClick={() => {
+                const link = document.createElement("a");
+                link.href = "/Manoj_Resume.pdf"; // Ensure the file is in the public folder
+                link.download = "Manoj_Resume.pdf"; // Set the filename
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 text-base sm:text-lg h-10 sm:h-12 w-full sm:w-auto"
+            >
+              Download CV
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => window.open("#projects")}
+              className="border-border hover:bg-primary/10 text-foreground hover:text-primary text-base sm:text-lg h-10 sm:h-12 w-full sm:w-auto"
+            >
+              See my work
+              <ArrowDown className="ml-2 h-5 w-5" />
+            </Button>
           </motion.div>
+        </div>
 
-          {/* Text Content */}
-          <div className="space-y-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-4xl md:text-6xl font-bold"
-            >
-              Hey, I'm {name}
-            </motion.h1>
+        {/* Right Content - Image */}
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="relative w-full lg:w-[600px] aspect-[4/3]"
+        >
+          {/* Main Image Container */}
+          <div className="relative w-full h-full rounded-[2rem] overflow-hidden border-2 border-primary/30 bg-gradient-to-br from-muted to-muted/50 group transition-all duration-500 hover:border-primary/50">
+            <div className="absolute inset-[2px] rounded-[1.9rem] overflow-hidden bg-background">
+              <img
+                src={avatarUrl}
+                alt={name}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-2xl md:text-3xl font-semibold text-muted-foreground"
-            >
-              {title}
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="max-w-2xl mx-auto text-lg text-muted-foreground"
-            >
-              {description}
-            </motion.p>
+            {/* Animated Border Glow */}
+            <div className="absolute -z-10 inset-0 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 rounded-[2rem] group-hover:animate-border-glow" />
           </div>
 
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex justify-center space-x-4"
-          >
+          {/* Social Icons */}
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-6">
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
-              onClick={() => window.open(socialLinks.github, "_blank")}
+              onClick={() => window.open(socialLinks.messenger, "_blank")}
+              className="bg-foreground/10 border-0 backdrop-blur-sm hover:bg-primary/20 text-foreground rounded-full w-12 h-12"
             >
-              <Github className="w-5 h-5" />
+              <MessageCircle className="h-6 w-6" />
             </Button>
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               onClick={() => window.open(socialLinks.linkedin, "_blank")}
+              className="bg-foreground/10 border-0 backdrop-blur-sm hover:bg-primary/20 text-foreground rounded-full w-12 h-12"
             >
-              <Linkedin className="w-5 h-5" />
+              <Linkedin className="h-6 w-6" />
             </Button>
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
-              onClick={() => window.open(socialLinks.twitter, "_blank")}
+              onClick={() => window.open(socialLinks.github, "_blank")}
+              className="bg-foreground/10 border-0 backdrop-blur-sm hover:bg-primary/20 text-foreground rounded-full w-12 h-12"
             >
-              <Twitter className="w-5 h-5" />
+              <Github className="h-6 w-6" />
             </Button>
-          </motion.div>
-
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-          >
-            <Button
-              size="lg"
-              onClick={onContactClick}
-              className="text-lg px-8 py-6"
-            >
-              Get in Touch
-            </Button>
-          </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-            >
-              <ArrowDown className="w-6 h-6 text-muted-foreground" />
-            </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

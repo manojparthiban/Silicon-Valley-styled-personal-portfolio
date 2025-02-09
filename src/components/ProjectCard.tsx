@@ -29,7 +29,7 @@ const ProjectCard = ({
   githubUrl = "#",
 }: ProjectCardProps) => {
   return (
-    <Card className="w-[360px] h-[400px] bg-card/50 backdrop-blur-sm border-primary/10 flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <Card className="w-full sm:w-[360px] h-[400px] bg-card/50 backdrop-blur-sm border-primary/10 flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="h-48 overflow-hidden">
         <img
           src={imageUrl}
@@ -40,9 +40,7 @@ const ProjectCard = ({
 
       <CardHeader className="space-y-1">
         <CardTitle className="text-xl font-bold">{title}</CardTitle>
-        <CardDescription className="text-sm line-clamp-2">
-          {description}
-        </CardDescription>
+        <CardDescription className="text-sm">{description}</CardDescription>
       </CardHeader>
 
       <CardContent>

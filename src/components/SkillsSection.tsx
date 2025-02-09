@@ -75,7 +75,9 @@ const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
   const scrollingSkills = [...skills, ...skills, ...skills];
 
   return (
-    <section className="min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="min-h-screen bg-muted/50 py-20 px-4 relative overflow-hidden">
+      {/* Grid Background Pattern */}
+      <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,53 +85,100 @@ const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">Skills & Expertise</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+            Skills & Expertise
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Technologies and tools I work with
           </p>
         </motion.div>
 
-        <div className="relative w-full overflow-hidden py-12 select-none">
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
-
-          {/* Infinite Scroll Row */}
-          <motion.div
-            className="flex space-x-20"
-            animate={{
-              x: ["-33.33%", "-66.66%"],
-            }}
-            transition={{
-              x: {
-                duration: 25,
-                repeat: Infinity,
-                ease: "linear",
-                repeatType: "loop",
-              },
-            }}
-            style={{
-              width: `${300 * scrollingSkills.length}px`,
-            }}
-          >
-            {scrollingSkills.map((skill, index) => (
-              <div
-                key={`${skill.name}-${index}`}
-                className="flex flex-col items-center justify-center space-y-4 w-[200px] flex-shrink-0"
-              >
-                <div className="w-24 h-24 relative group">
-                  <img
-                    src={skill.icon}
-                    alt={skill.name}
-                    className="w-full h-full object-contain filter dark:invert transition-transform duration-300 group-hover:scale-110"
-                  />
+        <div className="space-y-16">
+          {/* First Row - Left to Right */}
+          <div className="w-full overflow-hidden select-none">
+            <motion.div
+              className="flex space-x-16"
+              animate={{
+                x: ["-33.33%", "-66.66%"],
+              }}
+              transition={{
+                x: {
+                  duration: 25,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatType: "loop",
+                },
+              }}
+              style={{
+                width: `${250 * Math.ceil(skills.length / 2) * 3}px`,
+              }}
+            >
+              {[
+                ...skills.slice(0, Math.ceil(skills.length / 2)),
+                ...skills.slice(0, Math.ceil(skills.length / 2)),
+                ...skills.slice(0, Math.ceil(skills.length / 2)),
+              ].map((skill, index) => (
+                <div
+                  key={`row1-${skill.name}-${index}`}
+                  className="flex flex-col items-center justify-center space-y-4 w-[200px] flex-shrink-0"
+                >
+                  <div className="w-24 h-24 relative group">
+                    <img
+                      src={skill.icon}
+                      alt={skill.name}
+                      className="w-full h-full object-contain filter dark:invert transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <span className="text-sm text-muted-foreground font-medium whitespace-nowrap">
+                    {skill.name}
+                  </span>
                 </div>
-                <span className="text-sm text-muted-foreground font-medium whitespace-nowrap">
-                  {skill.name}
-                </span>
-              </div>
-            ))}
-          </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Second Row - Right to Left */}
+          <div className="w-full overflow-hidden select-none">
+            <motion.div
+              className="flex space-x-16"
+              animate={{
+                x: ["-66.66%", "-33.33%"],
+              }}
+              transition={{
+                x: {
+                  duration: 25,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatType: "loop",
+                },
+              }}
+              style={{
+                width: `${250 * Math.floor(skills.length / 2) * 3}px`,
+              }}
+            >
+              {[
+                ...skills.slice(Math.ceil(skills.length / 2)),
+                ...skills.slice(Math.ceil(skills.length / 2)),
+                ...skills.slice(Math.ceil(skills.length / 2)),
+              ].map((skill, index) => (
+                <div
+                  key={`row2-${skill.name}-${index}`}
+                  className="flex flex-col items-center justify-center space-y-4 w-[200px] flex-shrink-0"
+                >
+                  <div className="w-24 h-24 relative group">
+                    <img
+                      src={skill.icon}
+                      alt={skill.name}
+                      className="w-full h-full object-contain filter dark:invert transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <span className="text-sm text-muted-foreground font-medium whitespace-nowrap">
+                    {skill.name}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

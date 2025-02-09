@@ -21,38 +21,40 @@ interface ProjectsSectionProps {
 const defaultProjects: Project[] = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "A modern e-commerce platform built with React and Node.js",
-    imageUrl: "https://images.unsplash.com/photo-1557821552-17105176677c",
-    technologies: ["React", "Node.js", "MongoDB"],
+    title: "Automated Hydroponic Controller",
+    description:
+      "An automated control system optimizing nutrition and water management for hydroponics.",
+    imageUrl: "/Hydroponics.jpg",
+    technologies: ["Arduino", "C++", "Firebase", "IoT Sensors", "Fusion 360"],
+    liveUrl: "https://ieeexplore.ieee.org/document/10677314",
+    githubUrl: "#",
+    category: "IoT",
+  },
+  {
+    id: 2,
+    title: "Personal Portfolio Webapp",
+    description: "Silicon Valley UI based personal Portfolio site",
+    imageUrl: "/Portfolio.png",
+    technologies: ["React Native", "TypeScript", "Vite"],
     liveUrl: "#",
     githubUrl: "#",
     category: "Web",
   },
   {
-    id: 2,
-    title: "Mobile Weather App",
-    description:
-      "Real-time weather tracking application with location services",
-    imageUrl: "https://images.unsplash.com/photo-1601134467661-3d775b999c8b",
-    technologies: ["React Native", "TypeScript", "API"],
-    liveUrl: "#",
-    githubUrl: "#",
-    category: "Mobile",
-  },
-  {
     id: 3,
-    title: "AI Image Generator",
-    description: "Generate unique images using machine learning algorithms",
-    imageUrl: "https://images.unsplash.com/photo-1547954575-855750c57bd3",
-    technologies: ["Python", "TensorFlow", "React"],
+    title: "Road Lane Detection for Autonomous Vehicles",
+    description:
+      "A real-time lane detection algorithm for autonomous driving and advanced driver assistance systems",
+    imageUrl: "/roadlane.png",
+    technologies: ["Python", "OpenCV", "PyTeseract", "CV Algos"],
     liveUrl: "#",
-    githubUrl: "#",
-    category: "AI",
+    githubUrl:
+      "https://github.com/manojparthiban/Computer_Vision_FeatureDetection",
+    category: "ML/AI",
   },
 ];
 
-const categories = ["All", "Web", "Mobile", "AI"];
+const categories = ["All", "IoT", "ML/AI", "Web"];
 
 const ProjectsSection = ({
   projects = defaultProjects,
@@ -65,7 +67,9 @@ const ProjectsSection = ({
       : projects.filter((project) => project.category === selectedCategory);
 
   return (
-    <section className="py-20 px-4 md:px-8 lg:px-16 bg-muted min-h-screen">
+    <section className="min-h-screen bg-muted/50 py-20 px-4 relative overflow-hidden">
+      {/* Grid Background Pattern */}
+      <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -73,14 +77,17 @@ const ProjectsSection = ({
         className="max-w-7xl mx-auto"
       >
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">My Projects</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+            My Projects
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore my portfolio of projects spanning web development, mobile
-            applications, and AI solutions.
+            Explore my portfolio of projects spanning web development, ML & AL
+            projects, Computer Vision based projects, Automation and IoT
+            projects.
           </p>
         </div>
 
-        <div className="flex justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12 px-2">
           {categories.map((category) => (
             <Button
               key={category}

@@ -73,6 +73,51 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "beam-1": "beam-1 20s linear infinite",
+        "beam-2": "beam-2 25s linear infinite",
+        "beam-3": "beam-3 30s linear infinite",
+        "border-glow": "border-glow 2s linear infinite",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "beam-1": {
+          "0%, 100%": {
+            transform: "translate(-50%, -50%) scale(1)",
+            opacity: "0.5",
+          },
+          "50%": {
+            transform: "translate(-30%, -30%) scale(1.2)",
+            opacity: "0.3",
+          },
+        },
+        "beam-2": {
+          "0%, 100%": {
+            transform: "translate(50%, -50%) scale(1.2)",
+            opacity: "0.3",
+          },
+          "50%": { transform: "translate(30%, -30%) scale(1)", opacity: "0.5" },
+        },
+        "beam-3": {
+          "0%, 100%": {
+            transform: "translate(0%, 50%) scale(1)",
+            opacity: "0.5",
+          },
+          "50%": {
+            transform: "translate(20%, 30%) scale(1.2)",
+            opacity: "0.3",
+          },
+        },
+        "border-glow": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "50%": { transform: "rotate(180deg)" },
+        },
       },
     },
   },

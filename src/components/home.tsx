@@ -48,10 +48,10 @@ const Home = () => {
         <ContactSection
           onSubmit={handleContactSubmit}
           socialLinks={{
-            github: "https://github.com",
-            linkedin: "https://linkedin.com",
-            twitter: "https://twitter.com",
-            email: "mailto:john.doe@example.com",
+            github: "https://github.com/manojparthiban",
+            linkedin: "https://www.linkedin.com/in/manoj-parthi31/",
+            twitter: "https://twitter.com/ImMj31",
+            email: "mailto:manojparthiban2002@gmail.com",
           }}
         />
       </div>
