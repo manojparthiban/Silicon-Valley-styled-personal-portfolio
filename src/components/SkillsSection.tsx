@@ -11,7 +11,7 @@ interface SkillsSectionProps {
 }
 
 const defaultSkills: Skill[] = [
-  { name: "SAP", icon: "https://img.icons8.com/ios-glyphs/100/sap.png" },
+  { name: "SAP", icon: "sap.png" },
   {
     name: "Python",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",

@@ -5,6 +5,7 @@ interface AboutSectionProps {
   bio?: string;
   experience?: string;
   education?: string;
+  university?: string;
   interests?: string;
 }
 

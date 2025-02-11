@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "./ui/form";
 
+// Form validation schema using Zod
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
@@ -23,7 +24,6 @@ const formSchema = z.object({
 });
 
 interface ContactSectionProps {
-  onSubmit?: (data: z.infer<typeof formSchema>) => void;
   socialLinks?: {
     github?: string;
     linkedin?: string;
@@ -33,7 +33,6 @@ interface ContactSectionProps {
 }
 
 const ContactSection = ({
-  onSubmit = (data) => console.log("Form submitted:", data),
   socialLinks = {
     github: "https://github.com/manojparthiban",
     linkedin: "https://www.linkedin.com/in/manoj-parthi31",
@@ -50,6 +49,29 @@ const ContactSection = ({
     },
   });
 
+  // Form Submission Handler - Integrates with Formspree
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const response = await fetch("https://formspree.io/f/movqownb", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Message sent successfully! ✅");
+        form.reset(); // Reset form on success
+      } else {
+        alert("Failed to send message. Please try again. ❌");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <section className="min-h-screen bg-muted/50 py-24 px-4 relative overflow-hidden">
       {/* Grid Background Pattern */}
@@ -64,13 +86,11 @@ const ContactSection = ({
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Contact Form */}
           <Card className="p-6 bg-card/50 backdrop-blur-sm border-primary/10">
             <CardContent>
               <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-6"
-                >
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
                     control={form.control}
                     name="name"
@@ -92,11 +112,7 @@ const ContactSection = ({
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="your@email.com"
-                            {...field}
-                          />
+                          <Input type="email" placeholder="your@email.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -129,6 +145,7 @@ const ContactSection = ({
             </CardContent>
           </Card>
 
+          {/* Social Links */}
           <div className="space-y-8">
             <div className="text-lg font-semibold">Connect with me</div>
             <div className="flex flex-col space-y-4">

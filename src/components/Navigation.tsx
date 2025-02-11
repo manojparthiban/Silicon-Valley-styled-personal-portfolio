@@ -62,9 +62,11 @@ const Navigation = React.memo(
                   </Button>
                 </SheetTrigger>
                 <SheetContent
-                  side="right"
-                  className="w-[240px] sm:w-[280px] bg-background/50 backdrop-blur-2xl border-l border-primary/10"
-                >
+                side="right"
+                className="w-[240px] sm:w-[280px] border-l border-primary/10 
+                bg-background/40 backdrop-blur-xl shadow-lg 
+                rounded-l-2xl text-foreground"
+>
                   <div className="flex flex-col space-y-4 mt-8">
                     <ThemeToggle />
                     {sections.map((section) => (

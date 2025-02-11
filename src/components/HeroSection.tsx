@@ -81,6 +81,7 @@ const HeroSection = React.memo(
               {description}
             </motion.p>
 
+            {/* New Glassmorphic Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -96,16 +97,18 @@ const HeroSection = React.memo(
                   link.click();
                   document.body.removeChild(link);
                 }}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 text-base sm:text-lg h-10 sm:h-12 w-full sm:w-auto"
+                className="bg-foreground/10 backdrop-blur-md border border-white/10 hover:bg-primary/20 text-foreground rounded-full px-8 py-6 h-12 transition-all duration-300 font-medium text-base hover:shadow-lg hover:border-primary/20"
               >
-                Download CV
+                Get Resume/CV
               </Button>
               <Button
-                variant="outline"
-                onClick={() => window.open("#projects")}
-                className="border-border hover:bg-primary/10 text-foreground hover:text-primary text-base sm:text-lg h-10 sm:h-12 w-full sm:w-auto"
+                onClick={() => {
+                  const projectsSection = document.getElementById("projects");
+                  projectsSection?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-foreground/10 backdrop-blur-md border border-white/10 hover:bg-primary/20 text-foreground rounded-full px-8 py-6 h-12 transition-all duration-300 font-medium text-base hover:shadow-lg hover:border-primary/20"
               >
-                See my work
+                See my works
                 <ArrowDown className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>

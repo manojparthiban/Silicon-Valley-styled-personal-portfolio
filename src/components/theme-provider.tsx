@@ -23,24 +23,19 @@ export function ThemeProvider({
   children,
   defaultTheme = "system",
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [theme, setTheme] = useState<Theme>(() => {
+    return (localStorage.getItem("theme") as Theme) || defaultTheme;
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const appliedTheme = theme === "system" ? systemTheme : theme;
 
     root.classList.remove("light", "dark");
+    root.classList.add(appliedTheme);
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
-    }
-
-    root.classList.add(theme);
+    localStorage.setItem("theme", appliedTheme);
   }, [theme]);
 
   return (
