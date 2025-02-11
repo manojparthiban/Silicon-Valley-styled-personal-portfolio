@@ -46,7 +46,6 @@ const Home = () => {
 
       <div id="contact">
         <ContactSection
-          onSubmit={handleContactSubmit}
           socialLinks={{
             github: "https://github.com/manojparthiban",
             linkedin: "https://www.linkedin.com/in/manoj-parthi31/",
