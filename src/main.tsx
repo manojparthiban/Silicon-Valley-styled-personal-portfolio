@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
+import { Analytics } from "@vercel/analytics/react"
 
 import { TempoDevtools } from "tempo-devtools";
 TempoDevtools.init();
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider defaultTheme="system">
       <BrowserRouter basename={basename}>
         <App />
+        <Analytics />
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
