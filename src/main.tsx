@@ -5,6 +5,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import { TempoDevtools } from "tempo-devtools";
 TempoDevtools.init();
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BrowserRouter basename={basename}>
         <App />
         <Analytics />
+        <SpeedInsights />
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
