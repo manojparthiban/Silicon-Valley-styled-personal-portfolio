@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Menu, Home, User, Code, FolderGit2, Mail, X } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
@@ -32,15 +32,21 @@ const Navigation = React.memo(
   }: NavigationProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const scrollToSection = (id: string) => {
+    const scrollToSection = useCallback((id: string) => {
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        const options: ScrollIntoViewOptions = {
+          behavior: "smooth",
+          block: "start",
+        };
+        requestAnimationFrame(() => {
+          element.scrollIntoView(options);
+        });
       }
-    };
+    }, []);
 
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/30 backdrop-blur-2xl border-b border-primary/10 shadow-sm transition-[background-color,backdrop-filter,border-color] duration-150 ease-out">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/30 backdrop-blur-2xl border-b border-primary/10 shadow-sm transition-[background-color,backdrop-filter,border-color] duration-150 ease-out will-change-[background-color,backdrop-filter,border-color]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12">
             {/* Logo */}
@@ -48,6 +54,7 @@ const Navigation = React.memo(
               className="flex-shrink-0"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              initial={false}
             >
               <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">MP</h1>
             </motion.div>
@@ -85,12 +92,13 @@ const Navigation = React.memo(
                   className="w-[280px] border-l border-primary/10 
                   bg-background/80 backdrop-blur-2xl shadow-lg 
                   rounded-l-3xl text-foreground p-0 overflow-hidden
-                  transition-[background-color,backdrop-filter] duration-150 ease-out"
+                  transition-[background-color,backdrop-filter] duration-150 ease-out
+                  will-change-[transform,opacity]"
                 >
                   <motion.div 
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.15 }}
+                    transition={{ duration: 0.15, type: "spring", stiffness: 300, damping: 30 }}
                     className="relative h-full"
                   >
                     {/* Menu content */}
