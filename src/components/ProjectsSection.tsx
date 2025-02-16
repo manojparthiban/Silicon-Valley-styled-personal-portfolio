@@ -79,10 +79,10 @@ const ProjectsSection = React.memo(
           className="max-w-7xl mx-auto"
         >
           <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">
               My Projects
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground dark:text-gray-300 max-w-2xl mx-auto">
               Explore my portfolio of projects spanning web development, ML & AI
               projects, Computer Vision-based projects, Automation, and IoT.
             </p>
@@ -95,7 +95,9 @@ const ProjectsSection = React.memo(
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category)}
-                className="min-w-[100px]"
+                className={`min-w-[100px] ${
+                  selectedCategory !== category && "text-foreground dark:text-white hover:text-foreground dark:hover:text-white"
+                }`}
               >
                 {category}
               </Button>

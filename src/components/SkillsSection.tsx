@@ -70,116 +70,98 @@ const defaultSkills: Skill[] = [
   },
 ];
 
-const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
-  // Triple the skills array for smoother infinite scroll
-  const scrollingSkills = [...skills, ...skills, ...skills];
+const SkillCard = ({ skill }: { skill: Skill }) => {
+  return (
+    <motion.div
+      className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 rounded-xl p-6 transition-all group shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20"
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ 
+        opacity: 1, 
+        scale: 1,
+        transition: {
+          type: "spring",
+          stiffness: 100,
+          damping: 15,
+          mass: 1
+        }
+      }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{
+        scale: 1.05,
+        y: -5,
+        transition: { 
+          type: "spring",
+          stiffness: 400,
+          damping: 10
+        }
+      }}
+    >
+      <div className="flex flex-col items-center gap-4">
+        <motion.img
+          src={skill.icon}
+          alt={skill.name}
+          loading="lazy"
+          className="h-16 w-16 object-contain dark:invert dark:brightness-150 dark:contrast-75 will-change-transform"
+          whileHover={{ 
+            scale: 1.1,
+            rotate: 5,
+            transition: {
+              type: "spring",
+              stiffness: 300,
+              damping: 10
+            }
+          }}
+        />
+        <span className="text-sm font-medium text-foreground dark:text-white">
+          {skill.name}
+        </span>
+      </div>
+    </motion.div>
+  );
+};
 
+const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
   return (
     <section className="min-h-screen bg-muted/50 py-24 px-4 relative overflow-hidden">
-      {/* Grid Background Pattern */}
       <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
-      <div className="max-w-7xl mx-auto">
-        <motion.div
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <motion.h2
+          className="text-4xl font-bold text-foreground dark:text-white mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          whileInView={{ 
+            opacity: 1, 
+            y: 0,
+            transition: {
+              type: "spring",
+              stiffness: 100,
+              damping: 20
+            }
+          }}
+          viewport={{ once: true, margin: "-100px" }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-            Skills & Expertise
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Technologies and tools I work with
-          </p>
+          My Skills
+        </motion.h2>
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+              }
+            }
+          }}
+        >
+          {skills.map((skill, index) => (
+            <SkillCard key={skill.name + index} skill={skill} />
+          ))}
         </motion.div>
-
-        <div className="space-y-32">
-          {/* First Row - Left to Right */}
-          <div className="w-full overflow-hidden select-none">
-            <motion.div
-              className="flex space-x-16"
-              animate={{
-                x: ["-33.33%", "-66.66%"],
-              }}
-              transition={{
-                x: {
-                  duration: 25,
-                  repeat: Infinity,
-                  ease: "linear",
-                  repeatType: "loop",
-                },
-              }}
-              style={{
-                width: `${250 * Math.ceil(skills.length / 2) * 3}px`,
-              }}
-            >
-              {[
-                ...skills.slice(0, Math.ceil(skills.length / 2)),
-                ...skills.slice(0, Math.ceil(skills.length / 2)),
-                ...skills.slice(0, Math.ceil(skills.length / 2)),
-              ].map((skill, index) => (
-                <div
-                  key={`row1-${skill.name}-${index}`}
-                  className="flex flex-col items-center justify-center space-y-4 w-[200px] flex-shrink-0"
-                >
-                  <div className="w-24 h-24 relative group">
-                    <img
-                      src={skill.icon}
-                      alt={skill.name}
-                      className="w-full h-full object-contain filter dark:invert transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span className="text-sm text-muted-foreground font-medium whitespace-nowrap">
-                    {skill.name}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Second Row - Right to Left */}
-          <div className="w-full overflow-hidden select-none">
-            <motion.div
-              className="flex space-x-16"
-              animate={{
-                x: ["-66.66%", "-33.33%"],
-              }}
-              transition={{
-                x: {
-                  duration: 25,
-                  repeat: Infinity,
-                  ease: "linear",
-                  repeatType: "loop",
-                },
-              }}
-              style={{
-                width: `${250 * Math.floor(skills.length / 2) * 3}px`,
-              }}
-            >
-              {[
-                ...skills.slice(Math.ceil(skills.length / 2)),
-                ...skills.slice(Math.ceil(skills.length / 2)),
-                ...skills.slice(Math.ceil(skills.length / 2)),
-              ].map((skill, index) => (
-                <div
-                  key={`row2-${skill.name}-${index}`}
-                  className="flex flex-col items-center justify-center space-y-4 w-[200px] flex-shrink-0"
-                >
-                  <div className="w-24 h-24 relative group">
-                    <img
-                      src={skill.icon}
-                      alt={skill.name}
-                      className="w-full h-full object-contain filter dark:invert transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span className="text-sm text-muted-foreground font-medium whitespace-nowrap">
-                    {skill.name}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
       </div>
     </section>
   );

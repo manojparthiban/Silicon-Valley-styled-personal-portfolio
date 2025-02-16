@@ -1,7 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { ArrowDown, Github, Linkedin, MessageCircle } from "lucide-react";
+import { ArrowDownCircle, Briefcase, Github, Linkedin, MessageCircle } from "lucide-react";
+import HeartBlast from "./HeartBlast";
 
 interface HeroSectionProps {
   name?: string;
@@ -58,9 +59,13 @@ const HeroSection = React.memo(
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight"
             >
-              It's me, <span className="text-primary">{name}</span>
+              It's me, <br />
+              <span className="text-primary text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+                {name}
+                <HeartBlast />
+              </span>
             </motion.h1>
 
             <motion.p
@@ -97,19 +102,21 @@ const HeroSection = React.memo(
                   link.click();
                   document.body.removeChild(link);
                 }}
-                className="bg-foreground/10 backdrop-blur-md border border-white/10 hover:bg-primary/20 text-foreground rounded-full px-8 py-6 h-12 transition-all duration-300 font-medium text-base hover:shadow-lg hover:border-primary/20"
+                className="bg-foreground/10 backdrop-blur-md animate-border-beam hover:bg-primary/30 text-foreground rounded-full px-8 py-6 h-12 transition-all duration-300 font-medium text-base hover:shadow-xl hover:border-primary/50 overflow-hidden group"
               >
-                Get Resume/CV
+                <div className="animate-marquee whitespace-nowrap group-hover:pause">
+                  Download Resume <ArrowDownCircle className="inline-block ml-2" />
+                </div>
               </Button>
               <Button
                 onClick={() => {
                   const projectsSection = document.getElementById("projects");
-                  projectsSection?.scrollIntoView({ behavior: "smooth" });
+            projectsSection?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="bg-foreground/10 backdrop-blur-md border border-white/10 hover:bg-primary/20 text-foreground rounded-full px-8 py-6 h-12 transition-all duration-300 font-medium text-base hover:shadow-lg hover:border-primary/20"
+                className="bg-foreground/10 backdrop-blur-md animate-border-beam hover:bg-primary/30 text-foreground rounded-full px-8 py-6 h-12 transition-all duration-300 font-medium text-base hover:shadow-xl hover:border-primary/50"
               >
                 See my works
-                <ArrowDown className="ml-2 h-5 w-5" />
+                <Briefcase className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
           </div>

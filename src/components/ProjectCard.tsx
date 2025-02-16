@@ -30,24 +30,32 @@ const ProjectCard = React.memo(
     githubUrl = "#",
   }: ProjectCardProps) => {
     return (
-      <Card className="w-full sm:w-[360px] h-[400px] bg-card/50 backdrop-blur-sm border-primary/10 flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
-        <div className="h-48 overflow-hidden">
+      <Card className="w-full sm:w-[360px] h-[400px] bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 flex flex-col overflow-hidden transition-all duration-300">
+        <div className="h-48 overflow-hidden group">
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
           />
         </div>
 
         <CardHeader className="space-y-1">
-          <CardTitle className="text-xl font-bold">{title}</CardTitle>
-          <CardDescription className="text-sm">{description}</CardDescription>
+          <CardTitle className="text-xl font-bold text-foreground dark:text-white">
+            {title}
+          </CardTitle>
+          <CardDescription className="text-sm text-muted-foreground dark:text-gray-300">
+            {description}
+          </CardDescription>
         </CardHeader>
 
         <CardContent>
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech, index) => (
-              <Badge key={index} variant="secondary">
+              <Badge 
+                key={index} 
+                variant="secondary"
+                className="bg-primary/10 hover:bg-primary/15 text-foreground dark:text-white transition-colors"
+              >
                 {tech}
               </Badge>
             ))}
@@ -58,7 +66,7 @@ const ProjectCard = React.memo(
           <Button
             variant="outline"
             size="sm"
-            className="flex-1"
+            className="flex-1 border-primary/20 hover:bg-primary/10 text-foreground dark:text-white hover:text-foreground dark:hover:text-white transition-colors"
             onClick={() => window.open(liveUrl, "_blank")}
           >
             <ExternalLink className="w-4 h-4 mr-2" />
@@ -67,7 +75,7 @@ const ProjectCard = React.memo(
           <Button
             variant="outline"
             size="sm"
-            className="flex-1"
+            className="flex-1 border-primary/20 hover:bg-primary/10 text-foreground dark:text-white hover:text-foreground dark:hover:text-white transition-colors"
             onClick={() => window.open(githubUrl, "_blank")}
           >
             <Github className="w-4 h-4 mr-2" />

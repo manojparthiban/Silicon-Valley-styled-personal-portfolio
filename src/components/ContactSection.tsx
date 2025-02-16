@@ -87,7 +87,7 @@ const ContactSection = ({
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Contact Form */}
-          <Card className="p-6 bg-card/50 backdrop-blur-sm border-primary/10">
+          <Card className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 p-6">
             <CardContent>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -96,9 +96,13 @@ const ContactSection = ({
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel className="text-primary">Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Your name" {...field} />
+                          <Input 
+                            placeholder="Your name" 
+                            {...field} 
+                            className="bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -110,9 +114,14 @@ const ContactSection = ({
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel className="text-primary">Email</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="your@email.com" {...field} />
+                          <Input 
+                            type="email" 
+                            placeholder="your@email.com" 
+                            {...field} 
+                            className="bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -124,11 +133,11 @@ const ContactSection = ({
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Message</FormLabel>
+                        <FormLabel className="text-primary">Message</FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="Your message"
-                            className="min-h-[150px]"
+                            className="min-h-[150px] bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors"
                             {...field}
                           />
                         </FormControl>
@@ -137,7 +146,10 @@ const ContactSection = ({
                     )}
                   />
 
-                  <Button type="submit" className="w-full">
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-primary/10 hover:bg-primary/20 text-primary border-primary/20 transition-colors"
+                  >
                     Send Message
                   </Button>
                 </form>
@@ -146,43 +158,45 @@ const ContactSection = ({
           </Card>
 
           {/* Social Links */}
-          <div className="space-y-8">
-            <div className="text-lg font-semibold">Connect with me</div>
-            <div className="flex flex-col space-y-4">
-              <Button
-                variant="outline"
-                className="justify-start"
-                onClick={() => window.open(socialLinks.github, "_blank")}
-              >
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </Button>
-              <Button
-                variant="outline"
-                className="justify-start"
-                onClick={() => window.open(socialLinks.linkedin, "_blank")}
-              >
-                <Linkedin className="mr-2 h-4 w-4" />
-                LinkedIn
-              </Button>
-              <Button
-                variant="outline"
-                className="justify-start"
-                onClick={() => window.open(socialLinks.twitter, "_blank")}
-              >
-                <Twitter className="mr-2 h-4 w-4" />
-                Twitter
-              </Button>
-              <Button
-                variant="outline"
-                className="justify-start"
-                onClick={() => window.open(socialLinks.email)}
-              >
-                <Mail className="mr-2 h-4 w-4" />
-                Email
-              </Button>
-            </div>
-          </div>
+          <Card className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 p-6">
+            <CardContent className="space-y-8">
+              <div className="text-lg font-semibold text-primary">Connect with me</div>
+              <div className="flex flex-col space-y-4">
+                <Button
+                  variant="outline"
+                  className="justify-start border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors group"
+                  onClick={() => window.open(socialLinks.github, "_blank")}
+                >
+                  <Github className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
+                  GitHub
+                </Button>
+                <Button
+                  variant="outline"
+                  className="justify-start border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors group"
+                  onClick={() => window.open(socialLinks.linkedin, "_blank")}
+                >
+                  <Linkedin className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
+                  LinkedIn
+                </Button>
+                <Button
+                  variant="outline"
+                  className="justify-start border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors group"
+                  onClick={() => window.open(socialLinks.twitter, "_blank")}
+                >
+                  <Twitter className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
+                  Twitter
+                </Button>
+                <Button
+                  variant="outline"
+                  className="justify-start border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors group"
+                  onClick={() => window.open(socialLinks.email)}
+                >
+                  <Mail className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
+                  Email
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
