@@ -73,38 +73,38 @@ const ContactSection = ({
   };
 
   return (
-    <section className="min-h-screen bg-muted/50 py-24 px-4 relative overflow-hidden">
+    <section className="min-h-screen bg-muted/50 py-12 sm:py-16 md:py-20 lg:py-24 px-4 relative overflow-hidden">
       {/* Grid Background Pattern */}
       <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Get in Touch</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-foreground dark:text-white">Get in Touch</h2>
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4">
             Have a question or want to work together? Feel free to reach out
             using the form below or through social media.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto">
           {/* Contact Form */}
-          <Card className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 p-6">
-            <CardContent>
+          <Card className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 p-4 sm:p-5 md:p-6">
+            <CardContent className="space-y-4 sm:space-y-5 md:space-y-6">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5 md:space-y-6">
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-primary">Name</FormLabel>
+                        <FormLabel className="text-primary text-sm sm:text-base">Name</FormLabel>
                         <FormControl>
                           <Input 
                             placeholder="Your name" 
                             {...field} 
-                            className="bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors"
+                            className="bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors text-sm sm:text-base h-9 sm:h-10"
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-xs sm:text-sm" />
                       </FormItem>
                     )}
                   />
@@ -114,16 +114,16 @@ const ContactSection = ({
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-primary">Email</FormLabel>
+                        <FormLabel className="text-primary text-sm sm:text-base">Email</FormLabel>
                         <FormControl>
                           <Input 
                             type="email" 
                             placeholder="your@email.com" 
                             {...field} 
-                            className="bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors"
+                            className="bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors text-sm sm:text-base h-9 sm:h-10"
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-xs sm:text-sm" />
                       </FormItem>
                     )}
                   />
@@ -133,22 +133,22 @@ const ContactSection = ({
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-primary">Message</FormLabel>
+                        <FormLabel className="text-primary text-sm sm:text-base">Message</FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="Your message"
-                            className="min-h-[150px] bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors"
+                            className="min-h-[120px] sm:min-h-[150px] bg-primary/5 border-primary/20 focus:border-primary/30 transition-colors text-sm sm:text-base"
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-xs sm:text-sm" />
                       </FormItem>
                     )}
                   />
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-primary/10 hover:bg-primary/20 text-primary border-primary/20 transition-colors"
+                    className="w-full bg-primary/10 hover:bg-primary/20 text-primary border-primary/20 transition-colors text-sm sm:text-base h-9 sm:h-10"
                   >
                     Send Message
                   </Button>
@@ -158,13 +158,13 @@ const ContactSection = ({
           </Card>
 
           {/* Social Links */}
-          <Card className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 p-6">
-            <CardContent className="space-y-8">
-              <div className="text-lg font-semibold text-primary">Connect with me</div>
-              <div className="flex flex-col space-y-4">
+          <Card className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 p-4 sm:p-5 md:p-6">
+            <CardContent className="space-y-6 sm:space-y-8">
+              <div className="text-base sm:text-lg md:text-xl font-semibold text-primary">Connect with me</div>
+              <div className="flex flex-col space-y-3 sm:space-y-4">
                 <Button
                   variant="outline"
-                  className="justify-start border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors group"
+                  className="justify-start border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors group text-sm sm:text-base h-9 sm:h-10"
                   onClick={() => window.open(socialLinks.github, "_blank")}
                 >
                   <Github className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />

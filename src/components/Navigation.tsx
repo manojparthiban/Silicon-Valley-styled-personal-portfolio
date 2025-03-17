@@ -52,9 +52,10 @@ const Navigation = React.memo(
             {/* Logo */}
             <motion.div 
               className="flex-shrink-0"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+              whileTap={{ scale: 0.95, transition: { type: "spring", stiffness: 400, damping: 10 } }}
               initial={false}
+              style={{ willChange: "transform", transform: "translateZ(0)" }}
             >
               <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">MP</h1>
             </motion.div>
@@ -62,17 +63,35 @@ const Navigation = React.memo(
             {/* Desktop Navigation */}
             <div className="hidden md:flex md:items-center md:space-x-4">
               <ThemeToggle />
-              {sections.map((section) => (
-                <Button
-                  key={section.id}
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => scrollToSection(section.id)}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {section.label}
-                </Button>
-              ))}
+              <AnimatePresence>
+                {sections.map((section) => (
+                  <motion.div
+                    key={section.id}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20, mass: 0.5 }}
+                    style={{ willChange: "transform, opacity", transform: "translateZ(0)" }}
+                  >
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => scrollToSection(section.id)}
+                      className="text-muted-foreground hover:text-foreground transition-colors relative group"
+                    >
+                      {section.label}
+                      <motion.span
+                        className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary rounded-full"
+                        initial={false}
+                        animate={{ width: "0%" }}
+                        whileHover={{ width: "100%" }}
+                        transition={{ type: "spring", stiffness: 400, damping: 20, mass: 0.5 }}
+                        style={{ willChange: "width", transform: "translateZ(0)" }}
+                      />
+                    </Button>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
 
             {/* Mobile Navigation */}
@@ -84,7 +103,13 @@ const Navigation = React.memo(
                     size="icon" 
                     className="h-8 w-8 hover:bg-primary/10 transition-colors"
                   >
-                    <Menu className="h-4 w-4" />
+                    <motion.div
+                      whileHover={{ rotate: 180 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 15, mass: 0.5 }}
+                      style={{ willChange: "transform", transform: "translateZ(0)" }}
+                    >
+                      <Menu className="h-4 w-4" />
+                    </motion.div>
                   </Button>
                 </SheetTrigger>
                 <SheetContent
@@ -98,15 +123,23 @@ const Navigation = React.memo(
                   <motion.div 
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.15, type: "spring", stiffness: 300, damping: 30 }}
+                    exit={{ opacity: 0, x: 50 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20, mass: 0.5 }}
                     className="relative h-full"
+                    style={{ willChange: "transform, opacity", transform: "translateZ(0)" }}
                   >
                     {/* Menu content */}
                     <div className="flex flex-col space-y-1 p-6 mt-6">
                       <div className="flex items-center justify-between mb-8">
                         <div>
                           <h2 className="text-lg font-semibold mb-2">Menu</h2>
-                          <div className="h-1 w-12 bg-gradient-to-r from-primary to-primary/50 rounded-full" />
+                          <motion.div 
+                            className="h-1 w-12 bg-gradient-to-r from-primary to-primary/50 rounded-full"
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ delay: 0.2, type: "spring", stiffness: 300, damping: 15, mass: 0.5 }}
+                            style={{ willChange: "transform", transform: "translateZ(0)" }}
+                          />
                         </div>
                         <ThemeToggle />
                       </div>
@@ -118,7 +151,13 @@ const Navigation = React.memo(
                             key={section.id}
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.05, duration: 0.15 }}
+                            transition={{ 
+                              delay: index * 0.05, 
+                              type: "spring",
+                              stiffness: 300,
+                              damping: 30
+                            }}
+                            style={{ willChange: "transform, opacity", transform: "translateZ(0)" }}
                           >
                             <SheetClose asChild>
                               <Button
@@ -127,9 +166,15 @@ const Navigation = React.memo(
                                   scrollToSection(section.id);
                                   setIsOpen(false);
                                 }}
-                                className="w-full justify-start gap-3 py-6 text-base font-medium"
+                                className="w-full justify-start gap-3 py-6 text-base font-medium group"
                               >
-                                <MenuItem className="h-5 w-5" />
+                                <motion.div
+                                  whileHover={{ scale: 1.2, rotate: 5 }}
+                                  transition={{ type: "spring", stiffness: 500, damping: 20, mass: 0.5 }}
+                                  style={{ willChange: "transform", transform: "translateZ(0)" }}
+                                >
+                                  <MenuItem className="h-5 w-5" />
+                                </motion.div>
                                 {section.label}
                               </Button>
                             </SheetClose>

@@ -5,13 +5,13 @@ export const BackgroundGradient = () => {
     <div className="fixed inset-0 -z-10 overflow-hidden">
       <motion.div
         animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 90, 0],
+          scale: [1, 1.1, 1],
+          rotate: [0, 45, 0],
         }}
         transition={{
-          duration: 20,
+          duration: 10,
           repeat: Infinity,
-          ease: "linear",
+          ease: "easeInOut",
         }}
         className="absolute inset-0"
       >

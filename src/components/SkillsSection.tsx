@@ -80,41 +80,50 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
         scale: 1,
         transition: {
           type: "spring",
-          stiffness: 100,
-          damping: 15,
-          mass: 1
+          stiffness: 150,
+          damping: 20,
+          duration: 0.3
         }
       }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "-20px" }}
       whileHover={{
-        scale: 1.05,
-        y: -5,
+        scale: 1.02,
+        y: -2,
         transition: { 
           type: "spring",
           stiffness: 400,
-          damping: 10
+          damping: 15,
+          duration: 0.15
         }
       }}
+      style={{ willChange: "transform, opacity" }}
     >
       <div className="flex flex-col items-center gap-4">
         <motion.img
           src={skill.icon}
           alt={skill.name}
           loading="lazy"
-          className="h-16 w-16 object-contain dark:invert dark:brightness-150 dark:contrast-75 will-change-transform"
+          className="h-16 w-16 object-contain dark:invert dark:brightness-150 dark:contrast-75"
           whileHover={{ 
-            scale: 1.1,
-            rotate: 5,
+            scale: 1.05,
+            rotate: 3,
             transition: {
               type: "spring",
-              stiffness: 300,
-              damping: 10
+              stiffness: 400,
+              damping: 10,
+              duration: 0.15
             }
           }}
+          style={{ willChange: "transform" }}
         />
-        <span className="text-sm font-medium text-foreground dark:text-white">
+        <motion.span 
+          className="text-sm font-medium text-foreground dark:text-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+        >
           {skill.name}
-        </span>
+        </motion.span>
       </div>
     </motion.div>
   );
@@ -123,7 +132,12 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
   return (
     <section className="min-h-screen bg-muted/50 py-24 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" 
+      />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.h2
@@ -134,11 +148,12 @@ const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
             y: 0,
             transition: {
               type: "spring",
-              stiffness: 100,
+              stiffness: 200,
               damping: 20
             }
           }}
           viewport={{ once: true, margin: "-100px" }}
+          style={{ willChange: "transform, opacity" }}
         >
           My Skills
         </motion.h2>
@@ -146,17 +161,19 @@ const SkillsSection = ({ skills = defaultSkills }: SkillsSectionProps) => {
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-20px" }}
           variants={{
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
               transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.2
+                staggerChildren: 0.05,
+                delayChildren: 0.05,
+                duration: 0.2
               }
             }
           }}
+          style={{ willChange: "transform, opacity" }}
         >
           {skills.map((skill, index) => (
             <SkillCard key={skill.name + index} skill={skill} />
