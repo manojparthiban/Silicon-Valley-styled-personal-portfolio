@@ -70,45 +70,16 @@ const ProjectsSection = React.memo(({ projects = defaultProjects }: ProjectsSect
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-        duration: 0.5,
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        staggerChildren: 0.1,
-        staggerDirection: -1,
         duration: 0.3
       }
     }
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
-      scale: 1,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 0.5
-      }
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-      scale: 0.95,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
         duration: 0.3
       }
     }
@@ -119,11 +90,10 @@ const ProjectsSection = React.memo(({ projects = defaultProjects }: ProjectsSect
       <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ type: "spring", stiffness: 100, damping: 20 }}
-        style={{ willChange: "transform, opacity" }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3 }}
         className="max-w-7xl mx-auto"
       >
         <div className="text-center mb-12">
@@ -138,21 +108,14 @@ const ProjectsSection = React.memo(({ projects = defaultProjects }: ProjectsSect
 
         <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12 px-2">
           {categories.map((category) => (
-            <motion.div
+            <Button
               key={category}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              style={{ willChange: "transform" }}
+              variant={selectedCategory === category ? "default" : "outline"}
+              onClick={() => setSelectedCategory(category)}
+              className={`min-w-[100px] transition-colors duration-300 ${selectedCategory !== category && "text-foreground dark:text-white hover:text-foreground dark:hover:text-white"}`}
             >
-              <Button
-                variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
-                className={`min-w-[100px] ${selectedCategory !== category && "text-foreground dark:text-white hover:text-foreground dark:hover:text-white"}`}
-              >
-                {category}
-              </Button>
-            </motion.div>
+              {category}
+            </Button>
           ))}
         </div>
 
@@ -160,22 +123,13 @@ const ProjectsSection = React.memo(({ projects = defaultProjects }: ProjectsSect
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          exit="exit"
-          viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
-          style={{ willChange: "transform" }}
-          layout
         >
           {filteredProjects.map((project) => (
             <motion.div
               key={project.id}
               variants={cardVariants}
-              layout
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              style={{ willChange: "transform, opacity" }}
-              layoutId={`project-${project.id}`}
+              className="transition-all duration-300"
             >
               <ProjectCard
                 title={project.title}
