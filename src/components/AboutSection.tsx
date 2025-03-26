@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 interface AboutSectionProps {
   bio?: string;
@@ -37,12 +36,13 @@ const AboutSection = React.memo(
       <section className="min-h-screen bg-muted/50 py-12 sm:py-16 md:py-20 lg:py-24 px-4 relative overflow-hidden">
         {/* Grid Background Pattern */}
         <div 
-          className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" 
+          className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none opacity-0 transition-opacity duration-300 ease-out" 
+          style={{ opacity: 1 }} 
         />
 
         <div className="max-w-[90rem] mx-auto relative z-10">
           <div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-12 sm:mb-16 transition-transform duration-300 ease-out hover:scale-[1.02]"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-foreground dark:text-white">
               About Me
@@ -54,7 +54,7 @@ const AboutSection = React.memo(
 
           {/* Bio Section - No Card */}
           <div
-            className="max-w-5xl mx-auto text-primary mb-16"
+            className="max-w-5xl mx-auto text-primary mb-16 transition-transform duration-300 ease-out hover:scale-[1.01]"
           >
             <p className="text-base sm:text-lg leading-relaxed text-foreground dark:text-white text-center px-4">
               {bio}
@@ -65,13 +65,13 @@ const AboutSection = React.memo(
           <div className="grid md:grid-cols-2 gap-8 max-w-[85rem] mx-auto px-4">
             {/* Work Experience Card */}
             <div
-              className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 rounded-xl p-8 transition-all duration-300 group shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 h-full"
+              className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 rounded-xl p-8 transition-all duration-300 group shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 h-full hover:scale-[1.02]"
             >
               <div className="flex items-center gap-4 mb-8">
                 <div 
                   className="p-3 bg-primary/10 rounded-lg transition-colors duration-300 group-hover:bg-primary/15"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary transition-transform duration-300 group-hover:scale-110">
                     <path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/>
                     <path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>
                     <path d="m16 20 2 2 4-4"/>
@@ -84,7 +84,7 @@ const AboutSection = React.memo(
                 <div className="absolute left-2 sm:left-3 top-0 w-px h-full bg-gradient-to-b from-primary/30 via-primary/20 to-transparent"/>
                 <div className="space-y-6 sm:space-y-8">
                   <div className="relative">
-                    <div className="absolute -left-6 sm:-left-8 top-0 w-4 sm:w-6 h-4 sm:h-6 bg-primary/10 rounded-full border-2 border-primary/30 flex items-center justify-center">
+                    <div className="absolute -left-6 sm:-left-8 top-0 w-4 sm:w-6 h-4 sm:h-6 bg-primary/10 rounded-full border-2 border-primary/30 flex items-center justify-center transition-transform duration-300 hover:scale-110">
                       <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-primary"/>
                     </div>
                     <div className="space-y-1 sm:space-y-2">
@@ -115,7 +115,7 @@ const AboutSection = React.memo(
                         ].map((point, index) => (
                           <div 
                             key={index}
-                            className="relative pl-6"
+                            className="relative pl-6 transition-transform duration-300 hover:translate-x-1"
                           >
                             <div 
                               className="absolute left-0 top-2 w-1.5 h-1.5 rounded-full bg-foreground/40 dark:bg-white/40"
@@ -132,13 +132,13 @@ const AboutSection = React.memo(
 
             {/* Education Card */}
             <div
-              className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 rounded-xl p-8 transition-all duration-300 group shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 h-full"
+              className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 rounded-xl p-8 transition-all duration-300 group shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 h-full hover:scale-[1.02]"
             >
               <div className="flex items-center gap-4 mb-8">
                 <div 
                   className="p-3 bg-primary/10 rounded-lg transition-colors duration-300 group-hover:bg-primary/15"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary transition-transform duration-300 group-hover:scale-110">
                     <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
                     <path d="M6 12v5c3 3 9 3 12 0v-5"/>
                   </svg>
@@ -157,12 +157,12 @@ const AboutSection = React.memo(
                   {certifications.map((cert, index) => (
                     <div 
                       key={index} 
-                      className="group/cert relative bg-primary/5 rounded-lg p-4 transition-all duration-300 hover:bg-primary/10"
+                      className="group/cert relative bg-primary/5 rounded-lg p-4 transition-all duration-300 hover:bg-primary/10 hover:scale-[1.02]"
                       onClick={() => cert.link && window.open(cert.link, "_blank")}
                       style={{ cursor: cert.link ? "pointer" : "default" }}
                     >
                       <div className="flex items-start gap-3">
-                        <img src={cert.logo} alt={cert.company} className="w-8 h-8 object-contain" />
+                        <img src={cert.logo} alt={cert.company} className="w-8 h-8 object-contain transition-transform duration-300 group-hover/cert:scale-110" />
                         <div className="space-y-1 flex-1">
                           <h5 className="text-sm font-medium text-foreground dark:text-white">{cert.title}</h5>
                           <p className="text-xs text-foreground/70 dark:text-white/70">{cert.name}</p>

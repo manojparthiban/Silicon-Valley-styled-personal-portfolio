@@ -65,37 +65,11 @@ const ProjectsSection = React.memo(({ projects = defaultProjects }: ProjectsSect
       : projects.filter((project) => project.category === selectedCategory);
   }, [selectedCategory, projects]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.3
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.3
-      }
-    }
-  };
-
   return (
     <section className="min-h-screen bg-muted/50 py-12 sm:py-16 md:py-20 lg:py-24 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.3 }}
-        className="max-w-7xl mx-auto"
-      >
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">
             My Projects
@@ -119,17 +93,14 @@ const ProjectsSection = React.memo(({ projects = defaultProjects }: ProjectsSect
           ))}
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           {filteredProjects.map((project) => (
             <motion.div
               key={project.id}
-              variants={cardVariants}
-              className="transition-all duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.15 }}
+              className="transition-opacity duration-150 hover:opacity-90"
             >
               <ProjectCard
                 title={project.title}
@@ -141,8 +112,8 @@ const ProjectsSection = React.memo(({ projects = defaultProjects }: ProjectsSect
               />
             </motion.div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 });

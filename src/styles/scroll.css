@@ -1,0 +1,55 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+  scroll-timeline: 1500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
+}
+
+/* Smooth scrolling for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.3) transparent;
+}
+
+/* Optimize animations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scroll behavior for all elements */
+* {
+  scroll-behavior: smooth;
+  transition: scroll-position 1500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Section transitions */
+section {
+  opacity: 0.4;
+  transform: translateY(20px);
+  transition: opacity 800ms ease-out, transform 800ms ease-out;
+}
+
+section:target,
+section:hover,
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

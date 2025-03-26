@@ -74,56 +74,31 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
   return (
     <motion.div
       className="bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 rounded-xl p-6 transition-all group shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20"
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0 }}
       whileInView={{ 
-        opacity: 1, 
-        scale: 1,
+        opacity: 1,
         transition: {
-          type: "spring",
-          stiffness: 150,
-          damping: 20,
-          duration: 0.3
+          duration: 0.2
         }
       }}
-      viewport={{ once: true, margin: "-20px" }}
+      viewport={{ once: true }}
       whileHover={{
-        scale: 1.02,
-        y: -2,
+        scale: 1.01,
         transition: { 
-          type: "spring",
-          stiffness: 400,
-          damping: 15,
-          duration: 0.15
+          duration: 0.2
         }
       }}
-      style={{ willChange: "transform, opacity" }}
     >
       <div className="flex flex-col items-center gap-4">
-        <motion.img
+        <img
           src={skill.icon}
           alt={skill.name}
           loading="lazy"
-          className="h-16 w-16 object-contain dark:invert dark:brightness-150 dark:contrast-75"
-          whileHover={{ 
-            scale: 1.05,
-            rotate: 3,
-            transition: {
-              type: "spring",
-              stiffness: 400,
-              damping: 10,
-              duration: 0.15
-            }
-          }}
-          style={{ willChange: "transform" }}
+          className="h-16 w-16 object-contain dark:invert dark:brightness-150 dark:contrast-75 transition-transform duration-200 hover:scale-105"
         />
-        <motion.span 
-          className="text-sm font-medium text-foreground dark:text-white"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15 }}
-        >
+        <span className="text-sm font-medium text-foreground dark:text-white transition-opacity duration-200">
           {skill.name}
-        </motion.span>
+        </span>
       </div>
     </motion.div>
   );

@@ -4,6 +4,7 @@ import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
 import SkillsSection from "./SkillsSection";
 import ProjectsSection from "./ProjectsSection";
+import BlogsSection from "./BlogsSection";
 import ContactSection from "./ContactSection";
 import { ScrollToTop } from "./ScrollToTop";
 import { BackgroundGradient } from "./BackgroundGradient";
@@ -42,6 +43,10 @@ const Home = () => {
 
       <div id="projects">
         <ProjectsSection />
+      </div>
+
+      <div id="blogs">
+        <BlogsSection />
       </div>
 
       <div id="contact">

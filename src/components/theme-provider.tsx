@@ -40,15 +40,10 @@ export function ThemeProvider({
 
     root.classList.remove("light", "dark");
     root.classList.add(appliedTheme);
-
-    if (!disableTransitionOnChange) {
-      root.style.transition = "background-color 0.3s ease-in-out";
-    } else {
-      root.style.transition = "";
-    }
+    root.style.transition = "none";
 
     localStorage.setItem("theme", appliedTheme);
-  }, [theme, disableTransitionOnChange]);
+  }, [theme]);
 
   return (
     <ThemeProviderContext.Provider value={{ theme, setTheme }}>

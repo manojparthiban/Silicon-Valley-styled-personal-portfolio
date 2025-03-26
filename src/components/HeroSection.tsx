@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { ArrowDownCircle, Briefcase, Github, Linkedin, MessageCircle } from "lucide-react"
 
@@ -30,13 +29,11 @@ const HeroSection = React.memo(
     onContactClick = () => console.log("Contact clicked"),
   }: HeroSectionProps) => {
     return (
-      <section className="min-h-screen bg-background relative overflow-hidden flex items-center py-12 sm:py-16 md:py-20 lg:py-24">
-        {/* Animated Background */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" 
+      <section className="min-h-screen bg-background relative overflow-hidden flex items-center py-16 sm:py-20 md:py-24 lg:py-28">
+        {/* Background Pattern */}
+        <div 
+          className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none opacity-0 transition-opacity duration-300 ease-out" 
+          style={{ opacity: 1 }}
         />
 
         {/* Main Content */}
@@ -46,7 +43,7 @@ const HeroSection = React.memo(
             <p className="text-blue-500 text-xl font-medium">Vanakam !</p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight">
               It's me, <br />
-              <span className="text-blue-500 text-5xl sm:text-6xl md:text-7xl lg:text-8xl inline-block transition-transform hover:scale-[1.02] duration-300">
+              <span className="text-blue-500 text-5xl sm:text-6xl md:text-7xl lg:text-8xl inline-block transition-transform duration-300 hover:scale-[1.02]">
                 {name}
               </span>
             </h1>
@@ -68,7 +65,7 @@ const HeroSection = React.memo(
               >
                 <span className="flex items-center justify-center gap-2">
                   Download Resume
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-y-1"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-y-1"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 </span>
               </Button>
 
@@ -81,7 +78,7 @@ const HeroSection = React.memo(
               >
                 <span className="flex items-center justify-center gap-2">
                   See my works
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                 </span>
               </Button>
             </div>
@@ -108,7 +105,7 @@ const HeroSection = React.memo(
                 { icon: Linkedin, link: socialLinks.linkedin },
                 { icon: Github, link: socialLinks.github },
               ].map((social, index) => (
-                <div key={index}>
+                <div key={index} className="transition-transform duration-300 hover:scale-110">
                   <Button
                     variant="outline"
                     size="icon"

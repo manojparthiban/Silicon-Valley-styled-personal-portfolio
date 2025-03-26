@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Menu, Home, User, Code, FolderGit2, Mail, X } from "lucide-react";
+import { Menu, Home, User, Code, FolderGit2, Mail, X, Book } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
@@ -17,6 +17,7 @@ const menuItems = {
   about: { icon: User, label: "About" },
   skills: { icon: Code, label: "Skills" },
   projects: { icon: FolderGit2, label: "Projects" },
+  blogs: { icon: Book, label: "Blog" },
   contact: { icon: Mail, label: "Contact" },
 };
 
@@ -27,6 +28,7 @@ const Navigation = React.memo(
       { id: "about", label: "About" },
       { id: "skills", label: "Skills" },
       { id: "projects", label: "Projects" },
+      { id: "blogs", label: "Blog" },
       { id: "contact", label: "Contact" },
     ],
   }: NavigationProps) => {
@@ -35,14 +37,25 @@ const Navigation = React.memo(
     const scrollToSection = useCallback((id: string) => {
       const element = document.getElementById(id);
       if (element) {
+        document.documentElement.style.scrollBehavior = 'smooth';
+        document.body.style.scrollBehavior = 'smooth';
         const options: ScrollIntoViewOptions = {
           behavior: "smooth",
           block: "start",
         };
         requestAnimationFrame(() => {
-          element.scrollIntoView(options);
+          element.scrollIntoView({
+            ...options,
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest"
+          });
         });
       }
+      return () => {
+        document.documentElement.style.scrollBehavior = '';
+        document.body.style.scrollBehavior = '';
+      };
     }, []);
 
     return (
@@ -52,9 +65,11 @@ const Navigation = React.memo(
             {/* Logo */}
             <motion.div 
               className="flex-shrink-0"
-              whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 10 } }}
-              whileTap={{ scale: 0.95, transition: { type: "spring", stiffness: 400, damping: 10 } }}
-              initial={false}
+              whileHover={{ scale: 1.05, rotate: 2, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+              whileTap={{ scale: 0.95, rotate: -2, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
               style={{ willChange: "transform", transform: "translateZ(0)" }}
             >
               <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">MP</h1>
@@ -77,16 +92,23 @@ const Navigation = React.memo(
                       variant="ghost"
                       size="sm"
                       onClick={() => scrollToSection(section.id)}
-                      className="text-muted-foreground hover:text-foreground transition-colors relative group"
+                      className="text-muted-foreground hover:text-foreground transition-all duration-300 relative group hover:bg-primary/5 active:scale-95"
                     >
                       {section.label}
                       <motion.span
                         className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary rounded-full"
-                        initial={false}
-                        animate={{ width: "0%" }}
-                        whileHover={{ width: "100%" }}
-                        transition={{ type: "spring", stiffness: 400, damping: 20, mass: 0.5 }}
-                        style={{ willChange: "width", transform: "translateZ(0)" }}
+                        initial={{ width: "0%", opacity: 0 }}
+                        whileHover={{ 
+                          width: "100%", 
+                          opacity: 1,
+                          transition: { 
+                            width: { type: "spring", stiffness: 400, damping: 20 },
+                            opacity: { duration: 0.2 }
+                          } 
+                        }}
+                        whileTap={{ width: "100%", opacity: 1 }}
+                        exit={{ width: "0%", opacity: 0, transition: { duration: 0.2 } }}
+                        style={{ willChange: "width, opacity", transform: "translateZ(0)" }}
                       />
                     </Button>
                   </motion.div>
@@ -104,8 +126,9 @@ const Navigation = React.memo(
                     className="h-8 w-8 hover:bg-primary/10 transition-colors"
                   >
                     <motion.div
-                      whileHover={{ rotate: 180 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15, mass: 0.5 }}
+                      whileHover={{ rotate: 180, scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
                       style={{ willChange: "transform", transform: "translateZ(0)" }}
                     >
                       <Menu className="h-4 w-4" />
@@ -124,8 +147,8 @@ const Navigation = React.memo(
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 50 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20, mass: 0.5 }}
-                    className="relative h-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="relative h-full backdrop-blur-sm"
                     style={{ willChange: "transform, opacity", transform: "translateZ(0)" }}
                   >
                     {/* Menu content */}

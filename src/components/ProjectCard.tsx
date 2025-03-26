@@ -34,18 +34,18 @@ const ProjectCard = React.memo(
       <Card className="w-full sm:w-[360px] h-[400px] bg-gradient-to-br from-card/50 to-card/30 dark:from-card/30 dark:to-card/10 backdrop-blur-lg border border-primary/20 dark:border-primary/10 shadow-md hover:shadow-lg shadow-black/5 hover:shadow-black/10 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-primary/5 hover:border-primary/20 flex flex-col overflow-hidden transition-all duration-300">
         <motion.div 
           className="h-48 overflow-hidden group"
-          whileHover={{ scale: 1.01 }}
+          whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          transition={{ type: "spring", stiffness: 200, damping: 15 }}
           style={{ willChange: "transform" }}
         >
           <motion.img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
-            initial={{ scale: 1.05, opacity: 0 }}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             loading="lazy"
             style={{ willChange: "transform, opacity" }}
           />
@@ -55,7 +55,7 @@ const ProjectCard = React.memo(
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
             style={{ willChange: "transform, opacity" }}
           >
             <CardTitle className="text-xl font-bold text-foreground dark:text-white">
@@ -65,7 +65,7 @@ const ProjectCard = React.memo(
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             style={{ willChange: "opacity" }}
           >
             <CardDescription className="text-sm text-muted-foreground dark:text-gray-300">
@@ -79,20 +79,20 @@ const ProjectCard = React.memo(
             className="flex flex-wrap gap-2"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
             style={{ willChange: "transform, opacity" }}
           >
             {technologies.map((tech, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ 
-                  duration: 0.15,
-                  delay: 0.1 + index * 0.05,
+                  duration: 0.3,
+                  delay: 0.3 + index * 0.1,
                   type: "spring",
-                  stiffness: 400,
-                  damping: 20
+                  stiffness: 200,
+                  damping: 15
                 }}
                 style={{ willChange: "transform, opacity" }}
               >
@@ -110,8 +110,8 @@ const ProjectCard = React.memo(
         <CardFooter className="mt-auto gap-2">
           <motion.div 
             className="flex-1"
-            whileHover={{ scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
             style={{ willChange: "transform" }}
           >
             <Button
