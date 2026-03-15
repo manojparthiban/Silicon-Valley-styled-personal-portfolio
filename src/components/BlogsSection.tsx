@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import BlogCard from "./BlogCard";
+import { BookOpen } from "lucide-react";
 
 interface Blog {
   id: number;
@@ -48,30 +49,54 @@ const defaultBlogs: Blog[] = [
   },
 ];
 
+/* ── animation variants ───────────────── */
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+  },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
+
 const BlogsSection = React.memo(({ blogs = defaultBlogs }: BlogsSectionProps) => {
   return (
-    <section className="min-h-screen bg-muted/50 py-12 sm:py-16 md:py-20 lg:py-24 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">
-            My Blog Posts
+    <section className="blogs-section relative py-12 sm:py-16 md:py-20 px-4 overflow-hidden">
+      <motion.div
+        className="max-w-7xl mx-auto relative z-10"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.08 }}
+      >
+        {/* ── Section Header ─────────────── */}
+        <motion.div variants={itemVariants} className="text-center mb-14">
+          <span className="about-section-badge">
+            <BookOpen className="w-3.5 h-3.5" />
+            Insights
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground mt-5 mb-4">
+            My <span className="hero-name-gradient">Blog Posts</span>
           </h2>
-          <p className="text-muted-foreground dark:text-gray-300 max-w-2xl mx-auto px-2 sm:px-4">
-            Explore my thoughts and insights on technology, development, and professional growth
-            through my articles on Medium and LinkedIn.
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+            Thoughts and insights on technology, development, and professional growth
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-          {blogs.map((blog) => (
+        {/* ── Blog Cards Grid ─────────────── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 justify-items-center">
+          {blogs.map((blog, index) => (
             <motion.div
               key={blog.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.15 }}
-              className="w-full transition-opacity duration-150 hover:opacity-90"
+              variants={itemVariants}
+              className="w-full"
             >
               <BlogCard
                 title={blog.title}
@@ -81,11 +106,12 @@ const BlogsSection = React.memo(({ blogs = defaultBlogs }: BlogsSectionProps) =>
                 readTime={blog.readTime}
                 platform={blog.platform}
                 url={blog.url}
+                isFirstCard={index === 0}
               />
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 });

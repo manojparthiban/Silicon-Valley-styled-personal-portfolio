@@ -1,51 +1,54 @@
+@import './styles/fonts.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    /* SAP UI5 Horizon inspired Light Mode with Apple aesthetics */
+    --background: 210 40% 98%;
+    --foreground: 210 20% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 210 20% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --popover-foreground: 210 20% 15%;
+    --primary: 212 90% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 90%;
+    --secondary-foreground: 210 20% 15%;
+    --muted: 210 20% 92%;
+    --muted-foreground: 210 15% 45%;
+    --accent: 210 20% 90%;
+    --accent-foreground: 212 90% 40%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 20% 86%;
+    --input: 210 20% 86%;
+    --ring: 212 90% 40%;
+    --radius: 1rem;
   }
- 
+
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    /* SAP UI5 Horizon inspired Dark Mode with Apple aesthetics */
+    --background: 210 50% 6%;
+    --foreground: 210 20% 95%;
+    --card: 210 40% 8%;
+    --card-foreground: 210 20% 95%;
+    --popover: 210 40% 8%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 210 90% 65%;
+    --primary-foreground: 210 50% 10%;
+    --secondary: 210 40% 12%;
+    --secondary-foreground: 210 20% 95%;
+    --muted: 210 40% 12%;
+    --muted-foreground: 210 20% 65%;
+    --accent: 210 40% 12%;
+    --accent-foreground: 210 90% 65%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --destructive-foreground: 210 20% 95%;
+    --border: 210 40% 15%;
+    --input: 210 40% 15%;
+    --ring: 210 90% 65%;
   }
 }
 
@@ -53,13 +56,1014 @@
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'JetBrains Mono', 'Space Grotesk', 'sans-serif';
+    /* Unified background blending handled by Tailwind bg-background apply */
+    min-height: 100vh;
   }
-  html {
-    scroll-behavior: smooth;
+
+}
+
+@layer components {
+
+  /* Glassmorphism utility classes - Apple + SAP UI5 inspired */
+  .glass {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius);
+    transform: translateZ(0);
+    /* Hardware acceleration */
+  }
+
+  .dark .glass {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .sap-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transform: translateZ(0);
+  }
+
+  .sap-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .sap-card {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  }
+
+  .dark .glass-nav {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
   }
 }
+
+/* ═══════════════════════════════════════════════
+   HERO SECTION – Apple Glass + SAP UI5 Aesthetic
+   ═══════════════════════════════════════════════ */
+
+/* Section wrapper */
+.hero-section {
+  background: hsl(var(--background));
+}
+
+/* ── Animated background blobs ──────────────── */
+.hero-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  animation: hero-blob-drift 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-bg-blob--1 {
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  left: -5%;
+  background: hsl(212 90% 50% / 0.25);
+}
+
+.hero-bg-blob--2 {
+  width: 440px;
+  height: 440px;
+  top: 30%;
+  right: -8%;
+  background: hsl(190 80% 55% / 0.2);
+  animation-delay: -4s;
+}
+
+.hero-bg-blob--3 {
+  width: 360px;
+  height: 360px;
+  bottom: -8%;
+  left: 30%;
+  background: hsl(250 60% 55% / 0.15);
+  animation-delay: -8s;
+}
+
+.dark .hero-bg-blob {
+  opacity: 0.25;
+}
+
+@keyframes hero-blob-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(40px, -30px) scale(1.12);
+  }
+}
+
+/* Dot grid overlay */
+.hero-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── Status badge ───────────────────────────── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: hsl(var(--foreground) / 0.7);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .hero-badge {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Name gradient text ─────────────────────── */
+.hero-name-gradient {
+  background: linear-gradient(135deg, hsl(212 90% 45%), hsl(190 80% 50%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .hero-name-gradient {
+  background: linear-gradient(135deg, hsl(210 90% 65%), hsl(190 80% 65%));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ── CTA Buttons ────────────────────────────── */
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, hsl(212 90% 42%), hsl(212 90% 34%));
+  border: none;
+  box-shadow: 0 4px 14px -2px hsl(212 90% 40% / 0.35);
+  transition: all 0.25s ease;
+}
+
+.hero-btn-primary:hover {
+  box-shadow: 0 6px 20px -2px hsl(212 90% 40% / 0.5);
+  transform: translateY(-1px);
+}
+
+.dark .hero-btn-primary {
+  background: linear-gradient(135deg, hsl(210 90% 58%), hsl(210 90% 48%));
+  color: hsl(210 50% 10%);
+}
+
+.hero-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.hero-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.dark .hero-btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark .hero-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Social icons row ───────────────────────── */
+.hero-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: hsl(var(--foreground) / 0.7);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.hero-social-icon:hover {
+  background: hsl(212 90% 45% / 0.12);
+  color: hsl(var(--primary));
+}
+
+.dark .hero-social-icon {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .hero-social-icon:hover {
+  background: hsl(210 90% 65% / 0.14);
+}
+
+/* ═══ RIGHT COLUMN – Developer Dashboard ═══ */
+.hero-dashboard {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 20px;
+  transform: translateZ(0);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow:
+    0 12px 40px -8px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.dark .hero-dashboard {
+  background: rgba(0, 0, 0, 0.38);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 12px 40px -8px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.hero-dashboard__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .hero-dashboard__header {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Large Avatar (centered in dashboard) ───── */
+.hero-avatar-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.hero-avatar-ring-lg {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 22px;
+  padding: 4px;
+  background: linear-gradient(135deg, hsl(212 90% 50%), hsl(190 80% 55%), hsl(250 60% 58%));
+  box-shadow: 0 8px 30px -6px hsl(212 90% 50% / 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-avatar-ring-lg:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 40px -6px hsl(212 90% 50% / 0.45);
+}
+
+/* ── Code snippet block ─────────────────────── */
+.hero-code-block {
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: 'JetBrains Mono', monospace;
+  color: hsl(210 20% 82%);
+  overflow-x: auto;
+}
+
+.dark .hero-code-block {
+  background: rgba(0, 0, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ═══ Certification Cards ═══════════════════ */
+.cert-card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px -6px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+
+.cert-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.dark .cert-card {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px -6px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.dark .cert-card:hover {
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Top gradient accent line */
+.cert-card__accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(212 90% 50%), hsl(190 80% 55%), hsl(250 60% 58%));
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.cert-card:hover .cert-card__accent {
+  opacity: 1;
+}
+
+/* Logo container */
+.cert-card__logo {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.cert-card:hover .cert-card__logo {
+  transform: scale(1.06);
+}
+
+.dark .cert-card__logo {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Title badge */
+.cert-card__badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  color: hsl(212 90% 38%);
+  background: hsl(212 90% 50% / 0.1);
+  border: 1px solid hsl(212 90% 50% / 0.15);
+}
+
+.dark .cert-card__badge {
+  color: hsl(210 90% 70%);
+  background: hsl(210 90% 65% / 0.12);
+  border-color: hsl(210 90% 65% / 0.18);
+}
+
+/* View Credential link */
+.cert-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(212 90% 42%);
+  transition: color 0.2s ease;
+}
+
+.cert-card:hover .cert-card__link {
+  color: hsl(212 90% 35%);
+}
+
+.dark .cert-card__link {
+  color: hsl(210 90% 65%);
+}
+
+.dark .cert-card:hover .cert-card__link {
+  color: hsl(210 90% 75%);
+}
+
+/* ═══ Responsive ════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero-bg-blob {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-bg-blob {
+    width: 220px;
+    height: 220px;
+    filter: blur(60px);
+  }
+
+  .hero-dashboard {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .hero-avatar-ring-lg {
+    width: 160px;
+    height: 160px;
+    border-radius: 18px;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   ABOUT SECTION – Apple Glass + SAP UI5 Aesthetic
+   ═══════════════════════════════════════════════ */
+
+.about-section {
+  background: hsl(var(--background));
+}
+
+.about-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.6;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+/* Section badge pill */
+.about-section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.08);
+  border: 1px solid hsl(var(--primary) / 0.15);
+  border-radius: 9999px;
+}
+
+/* Bio card */
+.about-bio-card {
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 28px 32px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 24px -4px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transform: translateZ(0);
+}
+
+.dark .about-bio-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 6px 24px -4px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Glass cards (experience, education, certifications wrapper) */
+.about-glass-card {
+  padding: 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px -6px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  transform: translateZ(0);
+}
+
+.dark .about-glass-card {
+  background: rgba(0, 0, 0, 0.32);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 32px -6px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Card header row */
+.about-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Icon box */
+.about-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: hsl(var(--primary) / 0.1);
+  border: 1px solid hsl(var(--primary) / 0.12);
+  flex-shrink: 0;
+}
+
+/* Timeline dot */
+.about-timeline-dot {
+  position: absolute;
+  left: -27px;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid hsl(var(--primary) / 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .about-timeline-dot {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+@media (min-width: 640px) {
+  .about-timeline-dot {
+    left: -29px;
+  }
+}
+
+/* Current badge */
+.about-current-badge {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 2px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 6px;
+  color: hsl(150 60% 35%);
+  background: hsl(150 60% 45% / 0.12);
+  border: 1px solid hsl(150 60% 45% / 0.2);
+}
+
+.dark .about-current-badge {
+  color: hsl(150 60% 65%);
+  background: hsl(150 60% 50% / 0.1);
+  border-color: hsl(150 60% 50% / 0.18);
+}
+
+/* Education row */
+.about-edu-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .about-edu-row {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.about-edu-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   SKILLS SECTION – Apple Glass + SAP UI5 Aesthetic
+   ═══════════════════════════════════════════════ */
+
+.skills-section {
+  background: hsl(var(--background));
+}
+
+/* Skill card */
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transform: translateZ(0);
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.skill-card:hover {
+  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.dark .skill-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.dark .skill-card:hover {
+  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Icon container */
+.skill-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .skill-card__icon-wrap {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Category tag */
+.skill-card__tag {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 5px;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--muted) / 0.6);
+}
+
+.dark .skill-card__tag {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ═══════════════════════════════════════════════
+   PROJECTS SECTION
+   ═══════════════════════════════════════════════ */
+
+.projects-section {
+  background: hsl(var(--background));
+}
+
+/* Filter buttons */
+.project-filter-btn {
+  padding: 7px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: hsl(var(--foreground) / 0.7);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.project-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.45);
+  color: hsl(var(--foreground));
+}
+
+.project-filter-btn--active {
+  background: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+  color: white;
+  box-shadow: 0 4px 14px -3px hsl(var(--primary) / 0.4);
+}
+
+.project-filter-btn--active:hover {
+  background: hsl(var(--primary));
+  color: white;
+}
+
+.dark .project-filter-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .project-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Project Card */
+.project-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 28px -6px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transform: translateZ(0);
+  transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.dark .project-card {
+  background: rgba(0, 0, 0, 0.32);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 6px 28px -6px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.dark .project-card:hover {
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Image wrapper */
+.project-card__img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+/* Hover overlay */
+.project-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-card__overlay {
+  opacity: 1;
+}
+
+.project-card__overlay-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.project-card__overlay-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.08);
+}
+
+/* Card body */
+.project-card__body {
+  padding: 18px 20px 20px;
+}
+
+/* Tech tags */
+.project-card__tag {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.08);
+  border: 1px solid hsl(var(--primary) / 0.12);
+}
+
+/* Action links */
+.project-card__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(var(--primary));
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.project-card__action:hover {
+  color: hsl(var(--primary) / 0.7);
+}
+
+/* ═══════════════════════════════════════════════
+   CONTACT SECTION
+   ═══════════════════════════════════════════════ */
+
+.blogs-section,
+.contact-section {
+  background: hsl(var(--background));
+}
+
+.contact-glass-card {
+  padding: 32px 36px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.dark .contact-glass-card {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Form Elements */
+.contact-input,
+.contact-textarea {
+  width: 100%;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 12px 16px;
+  color: hsl(var(--foreground));
+  font-size: 15px;
+  outline: none;
+  transition: all 0.25s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.contact-textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: hsl(var(--primary) / 0.5);
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.01);
+}
+
+.dark .contact-input,
+.dark .contact-textarea {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .contact-input:focus,
+.dark .contact-textarea:focus {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: hsl(var(--primary) / 0.4);
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Submit Button */
+.contact-submit-btn {
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  color: white;
+  background: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary));
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px -2px hsl(var(--primary) / 0.4);
+}
+
+.contact-submit-btn:hover:not(:disabled) {
+  background: hsl(var(--primary) / 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px hsl(var(--primary) / 0.5);
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Social connect buttons */
+.contact-social-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-social-btn:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(4px);
+}
+
+.dark .contact-social-btn {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .contact-social-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.contact-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .contact-social-icon {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: none;
+}
+
+/* ═══ Global transitions (kept) ═════════════ */
 
 /* Global transition styles */
 .transition-all {
@@ -69,12 +1073,15 @@
 }
 
 /* Button hover transitions */
-button, a {
+button,
+a {
   transition: all 0.3s ease;
 }
 
 /* Form element transitions */
-input, textarea, select {
+input,
+textarea,
+select {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 

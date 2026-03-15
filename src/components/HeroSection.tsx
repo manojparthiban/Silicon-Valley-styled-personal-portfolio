@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button } from "./ui/button";
-import { ArrowDownCircle, Briefcase, Github, Linkedin, MessageCircle } from "lucide-react"
+import {
+  Github,
+  Linkedin,
+  MessageCircle,
+  Download,
+  Terminal,
+  ChevronRight,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface HeroSectionProps {
   name?: string;
@@ -15,6 +25,37 @@ interface HeroSectionProps {
   onContactClick?: () => void;
 }
 
+/* ── stagger helpers ──────────────────────────── */
+/* ── stagger helpers ──────────────────────────── */
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+  },
+};
+const childVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
+
+const floatVariants = {
+  animate: {
+    y: [0, -8, 0],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
+/* ────────────────────────────────────────────── */
+
 const HeroSection = React.memo(
   ({
     name = "Manoj Parthiban",
@@ -28,103 +69,258 @@ const HeroSection = React.memo(
     },
     onContactClick = () => console.log("Contact clicked"),
   }: HeroSectionProps) => {
+    const sectionRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+      target: sectionRef,
+      offset: ["start start", "end start"],
+    });
+
+    // Parallax transforms
+    const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
     return (
-      <section className="min-h-screen bg-background relative overflow-hidden flex items-center py-16 sm:py-20 md:py-24 lg:py-28">
-        {/* Background Pattern */}
-        <div 
-          className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none opacity-0 transition-opacity duration-300 ease-out" 
-          style={{ opacity: 1 }}
-        />
+      <section
+        ref={sectionRef}
+        className="hero-section relative min-h-screen overflow-hidden flex items-center"
+      >
+        {/* ── Animated Background ─────────────────── */}
+        <motion.div className="absolute inset-0 -z-10" style={{ y: bgY }}>
+          {/* Gradient mesh blobs */}
+          <div className="hero-bg-blob hero-bg-blob--1" />
+          <div className="hero-bg-blob hero-bg-blob--2" />
+          <div className="hero-bg-blob hero-bg-blob--3" />
+          {/* Dot grid overlay */}
+          <div className="hero-dot-grid" />
+        </motion.div>
 
-        {/* Main Content */}
-        <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 lg:px-12 flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-24">
-          {/* Left Content */}
-          <div className="w-full lg:w-1/2 space-y-8 text-left">
-            <p className="text-blue-500 text-xl font-medium">Vanakam !</p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight">
-              It's me, <br />
-              <span className="text-blue-500 text-5xl sm:text-6xl md:text-7xl lg:text-8xl inline-block transition-transform duration-300 hover:scale-[1.02]">
-                {name}
-              </span>
-            </h1>
-            <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-xl">{title}</p>
-            <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-xl">{description}</p>
+        {/* ── Content ──────────────────────────────── */}
+        <motion.div
+          style={{ opacity: contentOpacity }}
+          className="relative z-10 max-w-7xl w-full mx-auto px-5 sm:px-8 lg:px-12 py-28 md:py-32 lg:py-0"
+        >
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            {/* ═══════════ LEFT COLUMN ═══════════ */}
+            <motion.div
+              className="w-full lg:w-[55%] space-y-7"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {/* Status badge */}
+              <motion.div variants={childVariants}>
+                <span className="hero-badge">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
+                  </span>
+                  <span>Software Developer</span>
+                </span>
+              </motion.div>
 
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4">
-              <Button
-                onClick={() => {
-                  const link = document.createElement("a");
-                  link.href = "/Manoj_Resume.pdf";
-                  link.download = "Manoj_Resume.pdf";
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                }}
-                className="relative overflow-hidden bg-foreground/5 hover:bg-primary/10 text-foreground rounded-full px-8 py-6 h-12 font-medium text-base transition-all duration-300 ease-out hover:shadow-lg group backdrop-blur-sm border border-white/10 hover:border-white/20"
+              {/* Greeting + Name */}
+              <motion.div variants={childVariants}>
+                <p className="text-primary font-semibold text-lg tracking-wide mb-2">
+                  Vanakam! 👋
+                </p>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.75rem] xl:text-7xl font-extrabold tracking-tight leading-[1.08] text-foreground">
+                  I'm{" "}
+                  <span className="hero-name-gradient">{name}</span>
+                </h1>
+              </motion.div>
+
+              {/* Title + Description */}
+              <motion.div
+                variants={childVariants}
+                className="space-y-3 max-w-xl"
               >
-                <span className="flex items-center justify-center gap-2">
+                <p className="text-lg md:text-xl text-foreground/80 font-medium">
+                  {title}
+                </p>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  {description}
+                </p>
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                variants={childVariants}
+                className="flex flex-col sm:flex-row gap-3 pt-2"
+              >
+                <Button
+                  onClick={() => {
+                    const link = document.createElement("a");
+                    link.href = "/Manoj_Resume.pdf";
+                    link.download = "Manoj_Resume.pdf";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                  className="hero-btn-primary group"
+                >
+                  <Download className="w-4 h-4 mr-2 transition-transform group-hover:translate-y-0.5" />
                   Download Resume
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-y-1"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                </span>
-              </Button>
+                </Button>
 
-              <Button
-                onClick={() => {
-                  const projectsSection = document.getElementById("projects");
-                  projectsSection?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="relative overflow-hidden bg-foreground/5 hover:bg-primary/10 text-foreground rounded-full px-8 py-6 h-12 font-medium text-base transition-all duration-300 ease-out hover:shadow-lg group backdrop-blur-sm border border-white/10 hover:border-white/20"
+                <Button
+                  onClick={() => {
+                    document
+                      .getElementById("projects")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="hero-btn-ghost group"
+                >
+                  View Projects
+                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                variants={childVariants}
+                className="flex items-center gap-3 pt-2"
               >
-                <span className="flex items-center justify-center gap-2">
-                  See my works
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                </span>
-              </Button>
-            </div>
-          </div>
-
-          {/* Right Content - Image */}
-          <div className="relative w-full lg:w-[600px] aspect-[4/3]">
-            <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-gradient-to-br from-primary/30 via-secondary/30 to-accent/30 p-[3px] group transition-all duration-300">
-              <div className="absolute inset-[3px] rounded-[1.9rem] overflow-hidden bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl">
-                <img
-                  src={avatarUrl}
-                  alt={name}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-
-            {/* Social Icons */}
-            <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-6">
-              {[
-                { icon: MessageCircle, link: socialLinks.messenger },
-                { icon: Linkedin, link: socialLinks.linkedin },
-                { icon: Github, link: socialLinks.github },
-              ].map((social, index) => (
-                <div key={index} className="transition-transform duration-300 hover:scale-110">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => window.open(social.link, "_blank")}
-                    className="bg-foreground/10 border-0 backdrop-blur-sm hover:bg-primary/20 text-foreground rounded-full w-12 h-12 transition-all duration-300"
+                {[
+                  {
+                    icon: Github,
+                    link: socialLinks.github,
+                    label: "GitHub",
+                  },
+                  {
+                    icon: Linkedin,
+                    link: socialLinks.linkedin,
+                    label: "LinkedIn",
+                  },
+                  {
+                    icon: MessageCircle,
+                    link: socialLinks.messenger,
+                    label: "Email",
+                  },
+                ].map((s) => (
+                  <motion.button
+                    key={s.label}
+                    whileHover={{ scale: 1.12, y: -2 }}
+                    whileTap={{ scale: 0.92 }}
+                    onClick={() => window.open(s.link, "_blank")}
+                    className="hero-social-icon"
+                    aria-label={s.label}
                   >
-                    <social.icon className="h-6 w-6" />
-                  </Button>
+                    <s.icon className="w-[18px] h-[18px]" />
+                  </motion.button>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* ═══════════ RIGHT COLUMN – Dev Dashboard ═══════════ */}
+            <motion.div
+              className="w-full lg:w-[45%]"
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 180,
+                damping: 22,
+                delay: 0.3,
+              }}
+            >
+              <motion.div
+                className="hero-dashboard"
+                variants={floatVariants}
+                animate="animate"
+              >
+                {/* ── Dashboard Header ───── */}
+                <div className="hero-dashboard__header">
+                  <div className="flex items-center gap-2">
+                    <Terminal className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-semibold text-foreground">
+                      developer.panel
+                    </span>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-red-400/80" />
+                    <span className="w-3 h-3 rounded-full bg-yellow-400/80" />
+                    <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
+                  </div>
                 </div>
-              ))}
-            </div>
+
+                {/* ── Large Avatar ───── */}
+                <div className="hero-avatar-large">
+                  <div className="hero-avatar-ring-lg">
+                    <img
+                      src={avatarUrl}
+                      alt={name}
+                      className="w-full h-full object-cover rounded-[18px]"
+                      loading="eager"
+                    />
+                  </div>
+                </div>
+
+                {/* ── Identity ───── */}
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-foreground">
+                    {name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Back-end Developer • SAP Certified
+                  </p>
+                </div>
+
+                {/* ── Code Snippet Preview ───── */}
+                <div className="hero-code-block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-[11px] font-semibold text-primary">
+                      about.ts
+                    </span>
+                  </div>
+                  <pre className="text-[13px] leading-relaxed">
+                    <code>
+                      <span className="text-blue-400">const</span>{" "}
+                      <span className="text-emerald-400">developer</span>{" "}
+                      <span className="text-foreground/60">=</span>{" "}
+                      <span className="text-yellow-400">{"{" + ""}</span>
+                      {"\n"}
+                      {"  "}
+                      <span className="text-foreground/50">name:</span>{" "}
+                      <span className="text-orange-300">
+                        '{name}'
+                      </span>
+                      ,{"\n"}
+                      {"  "}
+                      <span className="text-foreground/50">role:</span>{" "}
+                      <span className="text-orange-300">
+                        'Back-end Dev'
+                      </span>
+                      ,{"\n"}
+                      {"  "}
+                      <span className="text-foreground/50">passion:</span>{" "}
+                      <span className="text-orange-300">
+                        'Building systems'
+                      </span>
+                      {"\n"}
+                      <span className="text-yellow-400">{"}" + ""}</span>
+                      <span className="text-foreground/40">;</span>
+                    </code>
+                  </pre>
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronRight className="w-6 h-6 text-muted-foreground/50 rotate-90" />
+        </motion.div>
       </section>
     );
   },
 );
 
-// Add display name for better debugging in React DevTools
 HeroSection.displayName = "HeroSection";
 
 export default HeroSection;

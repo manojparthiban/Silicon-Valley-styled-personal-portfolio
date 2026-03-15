@@ -17,8 +17,31 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ["Space Grotesk", "sans-serif"],
+      sans: ["JetBrains Mono", "Space Grotesk", "sans-serif"],
+      mono: ["JetBrains Mono", "monospace"],
     },
+          glass: {
+            DEFAULT: 'rgba(255,255,255,0.15)',
+            dark: 'rgba(36, 37, 42, 0.35)',
+          },
+          glassBorder: {
+            DEFAULT: 'rgba(255,255,255,0.25)',
+            dark: 'rgba(36, 37, 42, 0.55)',
+          },
+          glassGradient: {
+            DEFAULT: 'linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.25) 100%)',
+            dark: 'linear-gradient(135deg, rgba(36,37,42,0.25) 0%, rgba(36,37,42,0.45) 100%)',
+          },
+          glassShadow: {
+            DEFAULT: '0 8px 32px 0 rgba(31, 38, 135, 0.18)',
+          },
+          backdropBlur: {
+            xs: '2px',
+            sm: '4px',
+            md: '8px',
+            lg: '16px',
+            xl: '24px',
+          },
     extend: {
       colors: {
         border: "hsl(var(--border))",

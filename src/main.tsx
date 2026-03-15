@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SmoothScroll } from "./components/SmoothScroll";
 
 import { TempoDevtools } from "tempo-devtools";
 TempoDevtools.init();
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider defaultTheme="system">
       <BrowserRouter basename={basename}>
-        <App />
-        <Analytics />
-        <SpeedInsights />
+        <SmoothScroll>
+          <App />
+          <Analytics />
+          <SpeedInsights />
+        </SmoothScroll>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
