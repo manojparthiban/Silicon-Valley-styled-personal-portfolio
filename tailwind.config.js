@@ -1,13 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
-  prefix: "",
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -17,31 +11,16 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ["JetBrains Mono", "Space Grotesk", "sans-serif"],
-      mono: ["JetBrains Mono", "monospace"],
+      sans: ["JetBrains Mono", "ui-monospace", "monospace"],
+      mono: ["JetBrains Mono", "ui-monospace", "monospace"],
     },
-          glass: {
-            DEFAULT: 'rgba(255,255,255,0.15)',
-            dark: 'rgba(36, 37, 42, 0.35)',
-          },
-          glassBorder: {
-            DEFAULT: 'rgba(255,255,255,0.25)',
-            dark: 'rgba(36, 37, 42, 0.55)',
-          },
-          glassGradient: {
-            DEFAULT: 'linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.25) 100%)',
-            dark: 'linear-gradient(135deg, rgba(36,37,42,0.25) 0%, rgba(36,37,42,0.45) 100%)',
-          },
-          glassShadow: {
-            DEFAULT: '0 8px 32px 0 rgba(31, 38, 135, 0.18)',
-          },
-          backdropBlur: {
-            xs: '2px',
-            sm: '4px',
-            md: '8px',
-            lg: '16px',
-            xl: '24px',
-          },
+    backdropBlur: {
+      xs: "2px",
+      sm: "4px",
+      md: "8px",
+      lg: "16px",
+      xl: "24px",
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -83,66 +62,7 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "beam-1": "beam-1 20s linear infinite",
-        "beam-2": "beam-2 25s linear infinite",
-        "beam-3": "beam-3 30s linear infinite",
-        "border-glow": "border-glow 2s linear infinite",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-        "beam-1": {
-          "0%, 100%": {
-            transform: "translate(-50%, -50%) scale(1)",
-            opacity: "0.5",
-          },
-          "50%": {
-            transform: "translate(-30%, -30%) scale(1.2)",
-            opacity: "0.3",
-          },
-        },
-        "beam-2": {
-          "0%, 100%": {
-            transform: "translate(50%, -50%) scale(1.2)",
-            opacity: "0.3",
-          },
-          "50%": { transform: "translate(30%, -30%) scale(1)", opacity: "0.5" },
-        },
-        "beam-3": {
-          "0%, 100%": {
-            transform: "translate(0%, 50%) scale(1)",
-            opacity: "0.5",
-          },
-          "50%": {
-            transform: "translate(20%, 30%) scale(1.2)",
-            opacity: "0.3",
-          },
-        },
-        "border-glow": {
-          "0%, 100%": { transform: "rotate(0deg)" },
-          "50%": { transform: "rotate(180deg)" },
-        },
-      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 };

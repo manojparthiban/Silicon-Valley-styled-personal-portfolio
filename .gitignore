@@ -27,9 +27,5 @@ dist-static
 *.sln
 *.sw?
 
-!node_modules/.vite
-
-**/tempobook/dynamic/
-**/tempobook/storyboards/
-
-core
+.swc
+.firebase

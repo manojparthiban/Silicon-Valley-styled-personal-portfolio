@@ -1,28 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
-import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "./components/theme-provider";
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/react"
-import { SmoothScroll } from "./components/SmoothScroll";
-
-import { TempoDevtools } from "tempo-devtools";
-TempoDevtools.init();
-
-const basename = import.meta.env.BASE_URL;
+import { LazyMotion, MotionConfig, domAnimation } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import App from "@/App";
+import "@/styles/globals.css";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="system">
-      <BrowserRouter basename={basename}>
-        <SmoothScroll>
+    <ThemeProvider>
+      <LazyMotion features={domAnimation} strict>
+        <MotionConfig reducedMotion="user">
+          <SmoothScroll />
           <App />
-          <Analytics />
-          <SpeedInsights />
-        </SmoothScroll>
-      </BrowserRouter>
+        </MotionConfig>
+      </LazyMotion>
+      <Analytics />
+      <SpeedInsights />
     </ThemeProvider>
   </React.StrictMode>,
 );
